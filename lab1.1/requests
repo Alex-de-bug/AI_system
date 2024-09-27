@@ -1,0 +1,45 @@
+Поиск серверов всех 
+
+server(Server).
+
+
+Поиск карты сервера 'otvaga'
+
+server_type_map(otvaga, Map).
+
+
+Поиск серверов, которые поддерживают карты 'chernarus_plus' или 'nmchernobyl'
+
+server_type_map(Server, chernarus_plus); 
+server_type_map(Server, nmchernobyl).
+
+
+Поиск серверов в России, которые не поддерживают режим 'pvp'
+
+server_country(Server, ru),
+\+ server_type_gameplay(Server, pvp).
+
+
+Поиск серверов с максимальным количеством игроков больше 60
+
+server_max_online(Server, MaxOnline),
+MaxOnline > 60.
+
+
+Поиск серверов, поддерживающих режим 'rp'
+
+server_type_gameplay(Server, rp).
+
+
+Поиск серверов для комфортной игры и вывод их IP вместе с версией клиента
+
+server_for_comfort_gameplay(Server), server_ip(Server, IP).
+
+
+Запрос для поиска серверов, которые комфортны для игры и поддерживают актуальную версию клиента
+
+findall(Server, 
+        (server_for_comfort_gameplay(Server), 
+         server_with_actual_game_cli(Server)), 
+        Result),
+sort(Result, Set).
