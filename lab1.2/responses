@@ -1,0 +1,6 @@
+#поиск серверов, которые имеют страну ch
+Server and hasCountry value ch
+
+#поиск серверов, на которых карта chernarus_plus
+Server and hasMap value chernarus_plus
+
