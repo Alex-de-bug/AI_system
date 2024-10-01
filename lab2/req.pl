@@ -155,3 +155,10 @@ server_for_nice_view(Server) :-
     server_view(Server, '3pp'),
     (server_type_map(Server, chernarus_plus);
     server_type_map(Server, nmchernobyl)).
+
+
+% Правило для юзеров
+server_for_user(Server, View, Type, Map) :- 
+    server_view(Server, View),
+    server_type_gameplay(Server, Type),
+    server_type_map(Server, Map).

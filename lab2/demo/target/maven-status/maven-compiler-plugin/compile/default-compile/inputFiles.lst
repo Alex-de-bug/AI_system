@@ -1,1 +1,6 @@
-/home/alwx/AI_system/lab2/demo/src/main/java/com/example/Main.java
+/home/alwx/AI_system/lab2/demo/src/main/java/com/prologApi/enums/PlayStyle.java
+/home/alwx/AI_system/lab2/demo/src/main/java/com/prologApi/Main.java
+/home/alwx/AI_system/lab2/demo/src/main/java/com/prologApi/enums/ServerMap.java
+/home/alwx/AI_system/lab2/demo/src/main/java/com/prologApi/PreferencesParser.java
+/home/alwx/AI_system/lab2/demo/src/main/java/com/prologApi/PrologInterface.java
+/home/alwx/AI_system/lab2/demo/src/main/java/com/prologApi/UserInteraction.java

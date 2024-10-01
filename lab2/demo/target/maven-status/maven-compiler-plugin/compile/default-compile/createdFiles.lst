@@ -1,1 +1,6 @@
-com/example/Main.class
+com/prologApi/enums/ServerMap.class
+com/prologApi/Main.class
+com/prologApi/PreferencesParser.class
+com/prologApi/PrologInterface.class
+com/prologApi/UserInteraction.class
+com/prologApi/enums/PlayStyle.class
