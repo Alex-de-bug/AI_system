@@ -1,1 +1,8 @@
-com/example/App.class
+com/example/utils/CSVParser.class
+com/example/Student.class
+com/example/utils/DataDivider.class
+com/example/utils/ModelTeacher.class
+com/example/utils/JChartStat.class
+com/example/Main.class
+com/example/math/LinearRegression.class
+com/example/utils/ProcessingData.class
