@@ -64,7 +64,7 @@ public class LinearRegression {
         return predictions;
     }
 
-    // Метод для вычисления среднего квадратического отклонения (MSE)
+    // Вычисление среднего квадратического отклонения
     public double meanSquaredError(double[][] X, double[] yActual) {
         double[] yPredicted = predict(X);
         double sumSquaredErrors = 0.0;
@@ -75,7 +75,7 @@ public class LinearRegression {
         return sumSquaredErrors / yActual.length;
     }
 
-    // Метод для вычисления коэффициента детерминации (R^2)
+    // Метод для вычисления коэффициента детерминации
     public double rSquared(double[][] X, double[] yActual) {
         double[] yPredicted = predict(X);
         double mean = Arrays.stream(yActual).average().orElse(0.0);

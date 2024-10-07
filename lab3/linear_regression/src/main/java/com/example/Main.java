@@ -1,6 +1,7 @@
 package com.example;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.example.utils.CSVParser;
 import com.example.utils.DataDivider;
@@ -8,10 +9,7 @@ import com.example.utils.JChartStat;
 import com.example.utils.ModelTeacher;
 import com.example.utils.ProcessingData;
 
-/**
- * Hello world!
- *
- */
+
 public class Main 
 {
     public static void main( String[] args )
