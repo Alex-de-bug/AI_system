@@ -1,0 +1,108 @@
+class LogisticRegression:
+    def __init__(self, learning_rate=0.01, n_iterations=1000, batch_size=32, 
+                 alpha=0.01, delta_converged=1e-6):
+        self.learning_rate = learning_rate
+        self.n_iterations = n_iterations
+        self.batch_size = batch_size
+        self.alpha = alpha  # коэффициент регуляризации
+        self.delta_converged = delta_converged
+        self.weights = None
+        self.bias = None
+        self.losses = []
+    
+    def sigmoid(self, z):
+        return 1 / (1 + np.exp(-z))
+    
+    def compute_loss(self, y_true, y_pred):
+        epsilon = 1e-15
+        y_pred = np.clip(y_pred, epsilon, 1 - epsilon)
+        return -np.mean(y_true * np.log(y_pred) + (1 - y_true) * np.log(1 - y_pred))
+    
+    def fit(self, X, y):
+        n_samples, n_features = X.shape
+        self.weights = np.zeros(n_features)
+        self.bias = 0
+        
+        previous_weights = np.inf
+        
+        for i in range(self.n_iterations):
+            # Выбор мини-батча
+            batch_indices = np.random.choice(n_samples, self.batch_size)
+            X_batch = X[batch_indices]
+            y_batch = y[batch_indices]
+            
+            # Прямой проход
+            z = np.dot(X_batch, self.weights) + self.bias
+            y_pred = self.sigmoid(z)
+            
+            # Градиенты с регуляризацией
+            dw = -(1/self.batch_size) * np.dot(X_batch.T, (y_batch - y_pred)) + \
+                 2 * self.alpha * self.weights
+            db = -(1/self.batch_size) * np.sum(y_batch - y_pred)
+            
+            # Обновление параметров
+            self.weights -= self.learning_rate * dw
+            self.bias -= self.learning_rate * db
+            
+            # Проверка сходимости
+            if np.linalg.norm(self.weights - previous_weights) < self.delta_converged:
+                print(f'Сходимость достигнута на итерации {i}')
+                break
+                
+            previous_weights = self.weights.copy()
+            
+            # Сохранение значения функции потерь
+            if i % 100 == 0:
+                loss = self.compute_loss(y_batch, y_pred)
+                self.losses.append(loss)
+                print(f'Iteration {i}, Loss: {loss:.4f}')
+    def predict_proba(self, X):
+        """Предсказание вероятностей"""
+        linear_model = np.dot(X, self.weights) + self.bias
+        return self.sigmoid(linear_model)
+    
+    def predict(self, X, threshold=0.5):
+        """Предсказание классов"""
+        probabilities = self.predict_proba(X)
+        return (probabilities >= threshold).astype(int)
+
+
+# Создание и обучение модели
+model = LogisticRegression(learning_rate=0.01, n_iterations=1000, batch_size=32)
+model.fit(X_train.values, y_train.values)
+
+# Получение предсказаний
+y_pred_train = model.predict(X_train.values)
+y_pred_test = model.predict(X_test.values)
+
+# Оценка точности
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+
+# Точность на обучающей выборке
+train_accuracy = accuracy_score(y_train, y_pred_train)
+print(f"Точность на обучающей выборке: {train_accuracy:.4f}")
+
+# Точность на тестовой выборке
+test_accuracy = accuracy_score(y_test, y_pred_test)
+print(f"Точность на тестовой выборке: {test_accuracy:.4f}")
+
+# Подробный отчет о качестве модели
+print("\nОтчет о классификации:")
+print(classification_report(y_test, y_pred_test))
+
+# Визуализация матрицы ошибок
+plt.figure(figsize=(8, 6))
+sns.heatmap(confusion_matrix(y_test, y_pred_test), annot=True, fmt='d', cmap='Blues')
+plt.title('Матрица ошибок')
+plt.xlabel('Предсказанные значения')
+plt.ylabel('Истинные значения')
+plt.show()
+
+# График функции потерь
+plt.figure(figsize=(10, 6))
+plt.plot(range(0, len(model.losses) * 100, 100), model.losses)
+plt.title('График функции потерь')
+plt.xlabel('Итерация')
+plt.ylabel('Потери')
+plt.grid(True)
+plt.show()
