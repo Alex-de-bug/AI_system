@@ -1,6 +1,6 @@
 def fit(self, X, Y):
 
-        assert X.shape[0] == Y.shape[0]
+        X.shape[0] == Y.shape[0]
 
         if self.fit_intercept:  # добавляем свободный коэфициент
             X_copy = self._add_intercept(X)
@@ -8,7 +8,6 @@ def fit(self, X, Y):
             X_copy = X.copy()
 
 
-        # self.weights = np.random.normal(loc=0, scale=1, size=X_copy.shape[1])
         self.weights = np.zeros(X_copy.shape[1])
 
         previous_weights = self.weights.copy()
@@ -36,5 +35,5 @@ def fit(self, X, Y):
         self.intercept_ = (
             self.weights[-1] if self.fit_intercept else 0
         )  # свободный коэффициент
-        # self.weights состоит из коэффициентов модели и свободного члена
+        # weights состоит из коэффициентов модели и свободного члена
         return self
